@@ -16,4 +16,8 @@ object Console {
     override def printLine(s: String): F[Unit] = Sync[F].delay(println(s))
     override def read(): F[String]             = Sync[F].delay(readLine())
   }
+
+  implicit class ConsoleClass(value: String) {
+    def printLine[F[_]: Sync]: F[Unit] = Console[F].printLine(value)
+  }
 }
